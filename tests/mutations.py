@@ -1,0 +1,21 @@
+"""Fixes in the governance feed SDK, as (name, file, text_to_remove, replacement). Used by SDK_FAMILY/sdk_mutate.py."""
+MUTATIONS = [
+    ("broken chain alarms", "feed.py", "                except ChainBroken as exc:\n                    out += self._alarm(name, \"CHAIN_BROKEN\", str(exc))\n                    continue", "                except ChainBroken as exc:\n                    continue"),
+    ("shortened chain alarms", "feed.py", "                if len(rows) < cur[\"len\"]:", "                if False:"),
+    ("rewritten history alarms", "feed.py", 'if cur["len"] and rows[cur["len"] - 1].get("entry_hash") != cur["head"]:', "if False:"),
+    ("vanished files alarm", "feed.py", '                    if cur["len"]:\n                        out += self._alarm(name, "CHAIN_SHORTENED", "was %d entries, now the chain files are gone" % cur["len"])', "                    pass"),
+    ("alarm once per problem", "feed.py", "        if self._alarmed.get(name) == sig:", "        if False:"),
+    ("alarm clears on repair", "feed.py", "                self._alarmed.pop(name, None)", "                pass"),
+    ("allow-listed fields only", "feed.py", "for k in SHOW if k in p and isinstance(p[k], (str, int, float, bool))}", "for k in p if isinstance(p[k], (str, int, float, bool))}"),
+    ("credential masked", "feed.py", "    if contains_credential(s):\n        return \"[REDACTED]\"", "    if False:\n        pass"),
+    ("value cut to 200", "feed.py", "return plain(s)[:200]", "return plain(s)"),
+    ("escape sequences stripped", "feed.py", "return plain(s)[:200]", "return s[:200]"),
+    ("subscriber crash isolated", "feed.py", "                except Exception:\n                    pass  # reviewed: one failing subscriber", "                except ZeroDivisionError:\n                    pass  # reviewed: one failing subscriber"),
+    ("state must be an object", "feed.py", "                if not isinstance(saved, dict):\n                    raise ValueError(\"state is not an object\")", "                pass"),
+    ("source names plain", "feed.py", "if not isinstance(name, str) or not _NAME.fullmatch(name):", "if False:"),
+    ("replica paths a list", "feed.py", 'if isinstance(paths, (str, bytes)) or not isinstance(paths, (list, tuple)) or not paths or any(not isinstance(p, (str, os.PathLike)) for p in paths):', "if False:"),
+    ("chain alarms are critical", "feed.py", '    if k.startswith("CHAIN_"):\n        return "critical"', "    if False:\n        return 'critical'"),
+    ("cursor does not advance in alarm", "feed.py", "                    out += self._alarm(name, \"CHAIN_REWRITTEN\", \"the entry last seen at position %d is not there any more\" % (cur[\"len\"] - 1))\n                    continue", "                    out += self._alarm(name, \"CHAIN_REWRITTEN\", \"x\")"),
+    ("control characters removed", "display.py", 'return _CTRL.sub(" ", text)', "return text"),
+    ("escape peeled until none left", "display.py", "    while prev != text:", "    while False:"),
+]

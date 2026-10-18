@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vega-governance-feed-sdk"
+version = "0.1.0"
+description = "Live governance feed: events read from custody chains as they grow, credential-scrubbed summaries, and alarms on broken, shortened or rewritten chains."
+requires-python = ">=3.10"
+dependencies = ["vega-custody-sdk"]
+license = {file = "LICENSE"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

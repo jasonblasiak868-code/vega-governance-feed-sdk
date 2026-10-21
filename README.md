@@ -2,6 +2,12 @@
 
 ![vega-governance-feed-sdk](assets/tile.svg)
 
+<!-- vega-install-order -->
+> **Build order: 2/2. This kit needs 1 other Vega kit installed first.** Install them in this order, then this one:
+> 1/2 `vega-custody-sdk`  
+> 2/2 `vega-governance-feed-sdk` (this kit)
+> Install each with `pip install --no-deps git+https://github.com/jasonblasiak868-code/<name>` in the order shown. Full steps: [INTEGRATION_GUIDE](https://github.com/jasonblasiak868-code/vega-umbrella-sdk/blob/main/INTEGRATION_GUIDE.md).
+
 Live governance feed: events read from custody chains as they grow, escape-stripped credential-scrubbed summaries, and critical alarms on broken, shortened, or rewritten chains. It owns the watch concern — giving a human operator a tamper-evident view of what the governed system is doing — so that a chain cut, edited, or replaced cannot pass silently. The failure it prevents is invisible tamper: an attacker who edits history, truncates the chain, or swaps replicas is detected on the next poll and raised as a critical alarm that persists until the chain is repaired.
 
 > **Licensing.** Source-available, not open source. Free for personal use; free for registered small businesses (under US$1M revenue and valuation); everyone else needs a commercial license (see LICENSE; for a commercial license write to jasonblasiak.ai.mail@gmail.com). Patent pending. Draft licence text, not yet reviewed by an attorney.

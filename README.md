@@ -26,7 +26,7 @@ Live governance feed: events read from custody chains as they grow, escape-strip
    - Verifies each chain via `vega_custody.dag.Chain` (hash chain integrity, replica agreement).
    - Detects `CHAIN_BROKEN` (hash mismatch, unreadable, replica disagreement), `CHAIN_SHORTENED` (chain shorter than cursor), `CHAIN_REWRITTEN` (historical entry replaced).
    - Raises each distinct alarm once per problem (signature-deduplicated); cursor does not advance while a source is in alarm.
-   - For new entries: builds summaries from an allow-list of payload fields, strips terminal escape sequences, scrubs credential-shaped values to `[REDACTED]`, clips to 200 chars.
+   - For new entries: builds summaries from an allow-list of payload fields, strips terminal escape sequences, scrubs credential-shaped values to `[REDACTED]`, clips to 200 chars. These summaries are for DISPLAY only: they are cut, so never route feed output into a graph or a record, and never present a summary as evidence (the full entry stays on the chain).
    - Updates cursor and persists to `state_path` atomically.
 5. **Snapshot** — `feed.snapshot()` returns counters by severity/kind and per-source cursors for status panels.
 

@@ -29,9 +29,10 @@ class FeedRefused(ValueError):
 
 def _clip(v):
     s = v if isinstance(v, str) else json.dumps(v, sort_keys=True, default=str)
-    if contains_credential(s):
+    p = plain(s)
+    if contains_credential(s) or contains_credential(p):   # an escape sequence inserted inside a key must not hide it
         return "[REDACTED]"
-    return plain(s)[:200]
+    return p[:200]
 
 
 def summarize(entry):
